@@ -19,17 +19,10 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-R5hNpbJjKKZDOKQCdGZQ+0iW5vdh5CzSgzORESh4bDU=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "ruff_python_ast-0.0.0" = "";
-    };
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit (finalAttrs) pname version src;
+    hash = "sha256-uhUMaUkaL57X8CVy6T9pCQa62IsOeKN/dhZTPVXSn14=";
   };
-
-  # cargoDeps = rustPlatform.fetchCargoVendor {
-  #   inherit (finalAttrs) pname version src;
-  #   hash = "sha256-uhUMaUkaL57X8CVy6T9pCQa62IsOeKN/dhZTPVXSn14=";
-  # };
 
   build-system = [
     cargo
