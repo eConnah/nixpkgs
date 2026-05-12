@@ -32,12 +32,6 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # expects site prefix below /usr/local/share, but we're in the nix store
-    "test_use_site_for_root_as_root"
-    "test_use_site_for_root_bypasses_xdg_user_vars"
-  ];
-
   pythonImportsCheck = [ "platformdirs" ];
 
   preCheck = ''
