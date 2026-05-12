@@ -3,7 +3,7 @@
   stdenvNoCC,
   runCommand,
   writers,
-  python3Packages,
+  python3,
   cargo,
   gitMinimal,
   nix-prefetch-git,
@@ -11,6 +11,14 @@
 }:
 
 let
+  python = python3.override {
+    self = python;
+    packageOverrides = final: prev: {
+      charset-normalizer = prev.charset-normalizer.override { withMypyc = false; };
+    };
+  };
+  python3Packages = python.pkgs;
+
   replaceWorkspaceValues = writers.writePython3Bin "replace-workspace-values" {
     libraries = with python3Packages; [
       tomli
